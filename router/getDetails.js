@@ -5,32 +5,27 @@ const router = express.Router();
 
 router.get("/students", async (req, res) => {
     const data = await Student.find({});
-
-    res.send(data);
-})
+    res.json(data);
+});
 
 router.get("/students/:id", async (req, res) => {
-    const studId = req.params.id;
-
-    const data =await Student.find(studId);
-
-    res.send(data);
-})
+    const data = await Student.findById(req.params.id);
+    res.json(data);
+});
 
 router.post("/students", async (req, res) => {
+    const student = await Student.create(req.body);
+    res.json(student);
+});
 
-    const studId = await Student.create(req.body);
+router.put("/students/:id", async (req, res) => {
+    const student = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(student);
+});
 
-    Student.push(studId);
-
-    await Student.save();
-})
+router.delete("/students/:id", async (req, res) => {
+    await Student.findByIdAndDelete(req.params.id);
+    res.json({ message: "Student deleted" });
+});
 
 module.exports = router;
-
-
-// GET /api/students Fetch all students
-// POST /api/students Add a new student
-// GET /api/students/:id Get one student by ID
-// PUT /api/students/:id Update student details
-// DELETE /api/students/:id Delete a student
