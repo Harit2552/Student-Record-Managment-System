@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
 
-async function dbConnect(){
+let isConnected = false;
+
+async function dbConnect() {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log("database connected");
+        if (isConnected) return;
+
+        const db = await mongoose.connect(process.env.MONGO_URI);
+
+        isConnected = db.connections[0].readyState;
+
+        console.log("Database connected");
     } catch (error) {
         console.log(error);
     }
