@@ -3,13 +3,13 @@ const Student = require("../models/students");
 
 const router = express.Router();
 
-router.get("api/students", async (req, res) => {
+router.get("/students", async (req, res) => {
     const data = await Student.find({});
 
     res.send(data);
 })
 
-router.get("api/students/:id", async (req, res) => {
+router.get("/students/:id", async (req, res) => {
     const studId = req.params.id;
 
     const data =await Student.find(studId);
@@ -17,7 +17,7 @@ router.get("api/students/:id", async (req, res) => {
     res.send(data);
 })
 
-router.post("api/students", async (req, res) => {
+router.post("/students", async (req, res) => {
 
     const studId = await Student.create(req.body);
 

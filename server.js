@@ -6,7 +6,7 @@ connectDB();
 
 const app = express();
 
-app.use(studentRoutes);
+app.use('/api', studentRoutes);
 
 app.get("/", (req, res) => {
     res.send("hello");
