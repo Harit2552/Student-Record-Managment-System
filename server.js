@@ -3,9 +3,9 @@ const connectDB = require('./db/db');
 const studentRoutes = require("./router/getDetails");
 require("dotenv").config();
 
-connectDB();
-
 console.log("ENV CHECK:", process.env.MONGO_URI);
+
+connectDB();
 
 const app = express();
 
