@@ -5,6 +5,8 @@ require("dotenv").config();
 
 connectDB();
 
+console.log("ENV CHECK:", process.env.MONGO_URI);
+
 const app = express();
 
 app.use(express.json());
@@ -12,6 +14,9 @@ app.use(express.static('.'));
 
 app.use('/api', studentRoutes);
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+// app.listen(3000, () => {
+//   console.log('Server is running on port 3000');
+// });
+
+// For testing purposes, we will export the app instead of listening directly
+module.exports = app;
