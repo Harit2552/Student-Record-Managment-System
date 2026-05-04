@@ -4,11 +4,7 @@ let isConnected = false;
 
 async function dbConnect() {
     try {
-        if (isConnected) return;
-
-        const db = await mongoose.connect(process.env.MONGO_URI);
-
-        isConnected = db.connections[0].readyState;
+        const db = await mongoose.connect("mongodb://localhost:27017/students");
 
         console.log("Database connected");
     } catch (error) {
