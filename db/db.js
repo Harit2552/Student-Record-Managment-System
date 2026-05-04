@@ -3,23 +3,19 @@ const mongoose = require('mongoose');
 let isConnected = false;
 
 async function dbConnect() {
+    if (isConnected) {
+        return;
+    }
+
     try {
+        const db = await mongoose.connect(process.env.MONGO_URI);
 
-        if (isConnected) {
-            console.log("Already connected to the database");
-            return;
-        }
-
-        const db = await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-
-        isConnected = db.connections[0].readyState;
+        isConnected = db.connections[0].readyState === 1;
 
         console.log("Database connected");
     } catch (error) {
-        console.log(error);
+        console.error("DB CONNECTION ERROR:", error.message);
+        throw error; // 🔥 important
     }
 }
 
