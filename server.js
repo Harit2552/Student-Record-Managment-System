@@ -5,7 +5,9 @@ require("dotenv").config();
 
 console.log("ENV CHECK:", process.env.MONGO_URI);
 
-connectDB();
+connectDB().catch(err => {
+  console.error("DB FAILED:", err);
+});
 
 const app = express();
 
